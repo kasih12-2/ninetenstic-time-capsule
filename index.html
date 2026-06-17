@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -125,7 +124,7 @@ Let's preserve a piece of our class forever 💌
 <input type="text" id="username" placeholder="Type your name...">
 </div>
 
-<div id="questions"></div>
+<div id="questions-container"></div>
 
 <button onclick="submitQuiz()">Submit My Answers</button>
 
@@ -150,39 +149,22 @@ No matter where life takes us, a part of IX-10 will always stay here.
 <script>
 
 const questions = [
-
 "Siapa yang pertama kali terlintas di pikiranmu saat dengar kata 'telat'?",
-
 "Siapa yang paling sering bikin satu kelas ketawa?",
-
 "Siapa yang paling sering muncul di fotomu?",
-
 "Siapa yang paling rajin menurutmu?",
-
 "Siapa yang paling cocok jadi guru?",
-
 "Siapa yang paling akan kamu rindukan?",
-
 "Siapa yang membuat masa sekolahmu lebih berwarna?",
-
 "Siapa yang menurutmu paling berubah sejak pertama masuk sekolah?",
-
 "Siapa yang punya energi paling positif?",
-
 "Siapa yang paling ramah?",
-
 "Siapa yang paling lucu?",
-
 "Siapa yang paling kalem?",
-
 "Siapa yang paling berisik?",
-
 "Siapa yang paling rajin?",
-
 "Siapa yang paling bisa diandalkan?",
-
 "Siapa yang paling mudah akrab dengan siapa saja?"
-
 ];
 
 const container = document.getElementById("questions-container");
@@ -217,8 +199,9 @@ function submitQuiz(){
 
   fetch(url, { mode: 'no-cors' })
     .then(() => {
-      alert("Jawaban kamu sudah terkirim! Terima kasih ya!");
-      window.location.reload();
+      // Sembunyikan halaman kuis, lalu munculkan pesan sukses estetik kamu
+      document.getElementById("quizPage").classList.add("hidden");
+      document.getElementById("successPage").classList.remove("hidden");
     })
     .catch((error) => {
       console.error('Gagal kirim:', error);
@@ -226,23 +209,8 @@ function submitQuiz(){
     });
 }
 
-
-
-/*
-NANTI DISINI BISA DISAMBUNG KE:
-- Firebase
-- Supabase
-- Google Sheets
-
-agar cuma kamu yang bisa lihat hasilnya
-*/
-
-document.getElementById("quizPage").classList.add("hidden");
-document.getElementById("successPage").classList.remove("hidden");
-
-}
-
 </script>
 
 </body>
 </html>
+
