@@ -187,30 +187,43 @@ function submitQuiz(){
     return;
   }
 
-  const entryIds = ["1815634035", "1830632454", "272745433", "1822996550", "203248971", "1253974816", "1674609852", "2135481290", "1756785348", "508091211", "2146030335", "318302480", "628855780", "1095797975", "1131712073", "466843243"];
+  // Membuat form bayangan murni HTML agar pengiriman data stabil di HP
+  const form = document.createElement("form");
+  form.action = "https://docs.google.com/forms/d/e/1FAIpQLSeE1uz7tlOhD7NZgdjjVphBSlGbhC6sQ1iZkfbS2jOi4gev4A/formResponse";
+  form.method = "POST";
+  form.style.display = "none";
   
-  let url = `https://docs.google.com/forms/d/e/1FAIpQLSeE1uz7tlOhD7NZgdjjVphBSlGbhC6sQ1iZkfbS2jOi4gev4A/formResponse?entry.1539549779=${encodeURIComponent(username)}`;
+  // Input Nama
+  const inputName = document.createElement("input");
+  inputName.name = "entry.1539549779";
+  inputName.value = username;
+  form.appendChild(inputName);
 
-  questions.forEach((q, index) => {
+  // Daftar ID Google Form untuk masing-masing soal
+  const entryIds = ["1815634035", "1830632454", "272745433", "1822996550", "203248971", "1253974816", "1674609852", "2135481290", "1756785348", "508091211", "2146030335", "318302480", "628855780", "1095797975", "1131712073", "466843243"];
+
+  // Memasukkan data jawaban secara langsung ke form bayangan
+  entryIds.forEach((id, index) => {
     const inputElement = document.getElementById(`q${index}`);
     const answer = inputElement ? inputElement.value : "";
-    url += `&entry.${entryIds[index]}=${encodeURIComponent(answer)}`;
+    
+    const inputAns = document.createElement("input");
+    inputAns.name = "entry." + id;
+    inputAns.value = answer;
+    form.appendChild(inputAns);
   });
 
-  fetch(url, { mode: 'no-cors' })
-    .then(() => {
-      // Sembunyikan halaman kuis, lalu munculkan pesan sukses estetik kamu
-      document.getElementById("quizPage").classList.add("hidden");
-      document.getElementById("successPage").classList.remove("hidden");
-    })
-    .catch((error) => {
-      console.error('Gagal kirim:', error);
-      alert("Waduh, ada gangguan jaringan. Coba lagi ya!");
-    });
+  document.body.appendChild(form);
+  
+  // Mengirim data menggunakan metode submit form murni HTML
+  form.submit();
+
+  // Tampilkan halaman sukses secara instan
+  document.getElementById("quizPage").classList.add("hidden");
+  document.getElementById("successPage").classList.remove("hidden");
 }
 
 </script>
 
 </body>
 </html>
-
