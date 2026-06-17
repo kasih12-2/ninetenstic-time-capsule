@@ -185,21 +185,18 @@ const questions = [
 
 ];
 
-const container = document.getElementById("questions");
+const container = document.getElementById("questions-container");
 
-questions.forEach((q,index)=>{
-
-container.innerHTML += `
-<div class="question">
-<label>${index+1}. ${q}</label>
-<input type="text" id="q${index}">
-</div>
-`;
-
+questions.forEach((q, index) => {
+  container.innerHTML += `
+    <div class="question">
+      <label>${index + 1}. ${q}</label>
+      <input type="text" id="q${index}">
+    </div>
+  `;
 });
 
 function submitQuiz(){
-  // 1. Kita ambil input nama. Sesuai foto baris 203 kamu, ID-nya adalah "username"
   const usernameInput = document.getElementById("username");
   const username = usernameInput ? usernameInput.value : "";
   
@@ -208,10 +205,8 @@ function submitQuiz(){
     return;
   }
 
-  // 2. Ambil semua jawaban dari kotak q0 sampai q15
   const entryIds = ["1815634035", "1830632454", "272745433", "1822996550", "203248971", "1253974816", "1674609852", "2135481290", "1756785348", "508091211", "2146030335", "318302480", "628855780", "1095797975", "1131712073", "466843243"];
   
-  // 3. Kita rakit URL link pengirimannya
   let url = `https://docs.google.com/forms/d/e/1FAIpQLSeE1uz7tlOhD7NZgdjjVphBSlGbhC6sQ1iZkfbS2jOi4gev4A/formResponse?entry.1539549779=${encodeURIComponent(username)}`;
 
   questions.forEach((q, index) => {
@@ -220,17 +215,17 @@ function submitQuiz(){
     url += `&entry.${entryIds[index]}=${encodeURIComponent(answer)}`;
   });
 
-  // 4. Tembak langsung ke Google Form tanpa pindah halaman
   fetch(url, { mode: 'no-cors' })
     .then(() => {
       alert("Jawaban kamu sudah terkirim! Terima kasih ya!");
-      window.location.reload(); // Refresh halaman setelah sukses
+      window.location.reload();
     })
     .catch((error) => {
       console.error('Gagal kirim:', error);
       alert("Waduh, ada gangguan jaringan. Coba lagi ya!");
     });
 }
+
 
 
 /*
