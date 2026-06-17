@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CLASS TIME CAPSULE</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'Inter',sans-serif;
+background:#F5F0E6;
+min-height:100vh;
+color:#5b1f1f;
+}
+
+.container{
+max-width:800px;
+margin:auto;
+padding:30px 20px;
+}
+
+.card{
+background:white;
+border-radius:25px;
+padding:30px;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+h1{
+font-family:'Playfair Display',serif;
+font-size:38px;
+text-align:center;
+color:#8B2E2E;
+margin-bottom:15px;
+}
+
+.subtitle{
+text-align:center;
+line-height:1.7;
+margin-bottom:25px;
+}
+
+input, textarea{
+width:100%;
+padding:14px;
+border:2px solid #e6d9c8;
+border-radius:14px;
+font-size:15px;
+margin-top:8px;
+}
+
+.question{
+margin-bottom:25px;
+}
+
+.question label{
+font-weight:600;
+display:block;
+margin-bottom:6px;
+}
+
+button{
+width:100%;
+padding:15px;
+border:none;
+background:#8B2E2E;
+color:white;
+font-size:16px;
+border-radius:14px;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+transform:translateY(-2px);
+}
+
+.hidden{
+display:none;
+}
+
+.success{
+text-align:center;
+padding:40px 20px;
+}
+
+.success h2{
+font-family:'Playfair Display',serif;
+font-size:32px;
+margin-bottom:15px;
+color:#8B2E2E;
+}
+
+.success p{
+line-height:1.8;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<div class="card" id="quizPage">
+
+<h1>CLASS TIME CAPSULE</h1>
+
+<p class="subtitle">
+Hi, Welcome to <b>IX-10 • 2026 Time Capsule</b> ✨<br><br>
+This little quiz is a collection of memories, inside jokes, and the people who made our school days unforgettable.
+Before we begin, please enter your name below and answer each question honestly.
+Let's preserve a piece of our class forever 💌
+</p>
+
+<div class="question">
+<label>Your Name</label>
+<input type="text" id="username" placeholder="Type your name...">
+</div>
+
+<div id="questions"></div>
+
+<button onclick="submitQuiz()">Submit My Answers</button>
+
+</div>
+
+<div class="card hidden success" id="successPage">
+
+<h2>Thank You! 💌</h2>
+
+<p>
+Your memories have officially been added to the Class Time Capsule.
+Years from now, these answers will become a small reminder of the people, laughter, and moments we shared together.
+<br><br>
+No matter where life takes us, a part of IX-10 will always stay here.
+✨ See you in the future.
+</p>
+
+</div>
+
+</div>
+
+<script>
+
+const questions = [
+
+"Siapa yang pertama kali terlintas di pikiranmu saat dengar kata 'telat'?",
+
+"Siapa yang paling sering bikin satu kelas ketawa?",
+
+"Siapa yang paling sering muncul di fotomu?",
+
+"Siapa yang paling rajin menurutmu?",
+
+"Siapa yang paling cocok jadi guru?",
+
+"Siapa yang paling akan kamu rindukan?",
+
+"Siapa yang membuat masa sekolahmu lebih berwarna?",
+
+"Siapa yang menurutmu paling berubah sejak pertama masuk sekolah?",
+
+"Siapa yang punya energi paling positif?",
+
+"Siapa yang paling ramah?",
+
+"Siapa yang paling lucu?",
+
+"Siapa yang paling kalem?",
+
+"Siapa yang paling berisik?",
+
+"Siapa yang paling rajin?",
+
+"Siapa yang paling bisa diandalkan?",
+
+"Siapa yang paling mudah akrab dengan siapa saja?"
+
+];
+
+const container = document.getElementById("questions");
+
+questions.forEach((q,index)=>{
+
+container.innerHTML += `
+<div class="question">
+<label>${index+1}. ${q}</label>
+<input type="text" id="q${index}">
+</div>
+`;
+
+});
+
+function submitQuiz(){
+
+const username = document.getElementById("username").value.trim();
+
+if(!username){
+alert("Please enter your name first!");
+return;
+}
+
+let answers = {};
+
+questions.forEach((q,index)=>{
+answers[q] = document.getElementById(`q${index}`).value;
+});
+
+const data = {
+name: username,
+answers: answers,
+time: new Date().toLocaleString()
+};
+
+console.log(data);
+
+/*
+NANTI DISINI BISA DISAMBUNG KE:
+- Firebase
+- Supabase
+- Google Sheets
+
+agar cuma kamu yang bisa lihat hasilnya
+*/
+
+document.getElementById("quizPage").classList.add("hidden");
+document.getElementById("successPage").classList.remove("hidden");
+
+}
+
+</script>
+
+</body>
+</html>
